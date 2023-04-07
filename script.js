@@ -30,5 +30,21 @@ function drawGrid(gridSize) {
     
 }
 
+// grid square hover effect
+function hoverEffect(e) {
+    e.target.style.backgroundColor = "black";
+    setTimeout(() => {
+        e.target.style.backgroundColor = "white";
+    }
+    , 1500);
+}
+
+
 // draw grid
 drawGrid(gridSize);
+
+// event listeners
+const gridSquares = document.querySelectorAll(".grid-square");
+gridSquares.forEach(gridSquare => {
+    gridSquare.addEventListener("mouseover", hoverEffect);
+});
