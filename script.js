@@ -1,8 +1,41 @@
 const gridContainer = document.querySelector(".grid-container");
 const header = document.querySelector(".header");
-const resetButton = document.querySelector("#reset-button");
+const resetButton = document.querySelector(".reset-button");
 const gridSizeInput = document.querySelector(".grid-size-input");
 
+// mousedown toggle
+let mouseDown = false;
+window.addEventListener("mousedown", () => {
+    mouseDown = true;
+});
+window.addEventListener("mouseup", () => {
+    mouseDown = false;
+});
+
+// color modes
+let currentMode = "black";
+const colorModeButton = document.querySelector(".color-mode");
+const blackModeButton = document.querySelector(".black-mode");
+const eraserModeButton = document.querySelector(".eraser-mode");
+
+colorModeButton.addEventListener("click", () => {
+    currentMode = "color";
+    colorModeButton.classList.add("active");
+    blackModeButton.classList.remove("active");
+    eraserModeButton.classList.remove("active");
+});
+blackModeButton.addEventListener("click", () => {
+    currentMode = "black";
+    colorModeButton.classList.remove("active");
+    blackModeButton.classList.add("active");
+    eraserModeButton.classList.remove("active");
+});
+eraserModeButton.addEventListener("click", () => {
+    currentMode = "eraser";
+    colorModeButton.classList.remove("active");
+    blackModeButton.classList.remove("active");
+    eraserModeButton.classList.add("active");
+});
 
 // get window size
 const windowWidth = window.innerWidth;
@@ -16,9 +49,6 @@ function getGridSquareSize() {
         return Math.floor(windowHeight / gridSizeInput.value);
     }
 }
-
-
-
 
 // create grid squares
 function drawGrid() {
@@ -40,36 +70,34 @@ function drawGrid() {
     // event listeners
     const gridSquares = document.querySelectorAll(".grid-square");
     gridSquares.forEach(gridSquare => {
-    gridSquare.addEventListener("mouseover", hoverEffect);
+        gridSquare.addEventListener("mouseover", hoverEffect);
+    // color on click too
+    gridSquares.forEach(square =>
+        square.addEventListener("click", hoverEffect));
+
 });    
 }
 
 // grid square hover effect
 function hoverEffect(e) {
+    // if mouse is not down, return
+    if (e.type === "mouseover" && !mouseDown) return;
+    // color mode
     // add a random hsl color to the grid square on first hover
-    if (e.target.style.backgroundColor === "") {
-        e.target.style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
-    }
-    // if the grid square is already colored, darken it by 10%
-    else {
-        const currentColor = e.target.style.backgroundColor;
-        const currentColorHSL = currentColor.match(/\d+/g);
-        const newColorHSL = `
-        hsl(${currentColorHSL[0]}, ${currentColorHSL[1]}%, ${currentColorHSL[2] - 10}%)`;
-        e.target.style.backgroundColor = newColorHSL;
-    }
-    // transition back to white
-    setTimeout(() => {
+    if(currentMode === "color"){
+        const randomR = Math.floor(Math.random() * 256)
+        const randomG = Math.floor(Math.random() * 256)
+        const randomB = Math.floor(Math.random() * 256)
+        e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`
+    } else if (currentMode === "black") {
+        e.target.style.backgroundColor = "black";
+    } else if (currentMode === "eraser") {
         e.target.style.backgroundColor = "white";
     }
-    , 300 * gridSizeInput.value);
 }
-
 
 // draw grid
 drawGrid(gridSizeInput.value);
-
-
 
 resetButton.addEventListener("click", () => {
     gridContainer.innerHTML = "";

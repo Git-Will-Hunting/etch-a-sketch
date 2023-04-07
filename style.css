@@ -9,9 +9,45 @@
     gap: 0;
 
 }
+.grid-square {
+    transition: 0.5s;
+    user-select: none;
+}
 
 .hovered {
     background-color: #000000;
     border: 1px solid #ccc;
     transition: 0.5s;
+}
+button {
+    background-color: #cff1a5;
+    border: 1px solid #000;
+    transition: 0.5s;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin: 5px;
+
+}
+
+.black-mode {
+    background-color: #000000;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+.eraser-mode {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+.reset-button {
+    background-color: #ffa1a1;
+    color: #000;
+    border: 1px solid #000;
+}
+div.header > .active {
+    background-color: #11ff11;
+    color: #000;
+    border: 1px solid #000;
 }
