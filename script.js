@@ -46,11 +46,23 @@ function drawGrid() {
 
 // grid square hover effect
 function hoverEffect(e) {
-    e.target.style.backgroundColor = "black";
+    // add a random hsl color to the grid square on first hover
+    if (e.target.style.backgroundColor === "") {
+        e.target.style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
+    }
+    // if the grid square is already colored, darken it by 10%
+    else {
+        const currentColor = e.target.style.backgroundColor;
+        const currentColorHSL = currentColor.match(/\d+/g);
+        const newColorHSL = `
+        hsl(${currentColorHSL[0]}, ${currentColorHSL[1]}%, ${currentColorHSL[2] - 10}%)`;
+        e.target.style.backgroundColor = newColorHSL;
+    }
+    // transition back to white
     setTimeout(() => {
         e.target.style.backgroundColor = "white";
     }
-    , 100 * gridSizeInput.value);
+    , 300 * gridSizeInput.value);
 }
 
 
