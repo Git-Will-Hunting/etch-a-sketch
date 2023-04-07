@@ -36,6 +36,12 @@ button {
     border: 1px solid #000;
 }
 
+.color-mode {
+    background-color: #11a1ff;
+    color: #fff;
+    border: 1px solid #000;
+}
+
 .eraser-mode {
     background-color: #fff;
     color: #000;

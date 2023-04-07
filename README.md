@@ -1,7 +1,7 @@
 # etch-a-sketch
 
-This is a mouse trailing cube highlighter and not a traditional Etch-a-Sketch.
+This is a grid art canvas that allows the grid size to be adjusted, colour modes to be picked, and to colour on hover or click.
 
-The grid size can be customized, random colours are pulled from HSL.
+When a colour mode is active it will have a green highlight on the button.
 
-The colour timeout is related to how many squares there are.
+To change the grid size use the input and hit reset.
